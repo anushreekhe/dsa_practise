@@ -11,6 +11,7 @@ void merge(vector<int> &v, int low, int mid, int high){
             left++;
         }
         else{
+            cnt += mid - left + 1;
             temp.push_back(v[right]);
             right++;
         }
@@ -27,19 +28,11 @@ void merge(vector<int> &v, int low, int mid, int high){
         v[i]=temp[i-low];
     }
 }
-void countPairs(vector<int> &v, int low, int mid, int high){
-    int right=mid+1;
-    for(int i=low; i<=mid; i++){
-        while(right<=high && (long long)v[i] > 2LL * v[right]) right++;
-        cnt += right - (mid+1);
-    }
-}
 void mergeSort(vector<int> &v, int low, int high){
     if(low>=high) return;
     int mid=(low+high)/2;
     mergeSort(v,low,mid);
     mergeSort(v,mid+1,high);
-    countPairs(v,low,mid,high);
     merge(v,low,mid,high);
 }
 int main(){
